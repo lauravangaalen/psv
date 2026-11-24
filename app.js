@@ -4,7 +4,7 @@ const fmtDatum = (iso, lang = "nl-NL") =>
 const kort = iso => new Date(iso + "T12:00:00").toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "short" });
 const badgeKlasse = c => c === "Champions League" ? "cl" : c === "KNVB Beker" ? "bk" : "er";
 const wedstrijdTekst = m => m.thuis ? `PSV – ${m.tegenstander}` : `${m.tegenstander} – PSV`;
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&", "<": "<", ">": ">", '"': """ }[c]));
 
 /* ---------- Tabs ---------- */
 document.querySelectorAll("#nav button").forEach(b => b.addEventListener("click", () => {
@@ -118,25 +118,97 @@ function tekenOpstelling() {
 
 tekenFilter(); tekenSpelers(); tekenUitslagen(); tekenOpstelling();
 
-/* ---------- Tenues ---------- */
+/* ---------- Tenues 2026/27 (echte designs) ---------- */
 const SHIRT = "M30 14 L10 28 L20 52 L34 46 L34 118 H86 V46 L100 52 L110 28 L90 14 Q60 32 30 14 Z";
+
 function shirt(t) {
-  const streep = t.strepen ? [34,46,58,70,82,94].map((x,i)=>`<rect x="${34+i*8.67}" y="10" width="8.67" height="115" fill="${i%2?'#fff':t.basis}"/>`).join("") : "";
-  const mouw = (t.mouw||t.basis);
-  return `<svg viewBox="0 0 120 130" aria-hidden="true"><defs><clipPath id="c-${t.id}"><path d="${SHIRT}"/></clipPath></defs>
-    <g clip-path="url(#c-${t.id})"><rect width="120" height="130" fill="${t.basis}"/>${streep}
+  let body = `<rect width="120" height="130" fill="${t.basis}"/>`;
+
+  // Thuis: klassieke rood-witte verticale banen (body), rode mouwen, zwarte kraag + manchetten
+  if (t.id === "thuis") {
+    const banen = [34, 46, 58, 70, 82].map((x, i) =>
+      `<rect x="${x}" y="10" width="${i % 2 === 0 ? 12 : 12}" height="110" fill="${i % 2 === 0 ? "#fff" : "#e2001a"}"/>`
+    ).join("");
+    body = `<rect width="120" height="130" fill="#e2001a"/>${banen}`;
+  }
+
+  // Derde: navy met subtiel geometrisch patroon + cyan accenten
+  if (t.id === "derde") {
+    const pattern = `
+      <rect x="38" y="30" width="14" height="14" fill="#1a3a5c" opacity=".7"/>
+      <rect x="56" y="30" width="14" height="14" fill="#16324f" opacity=".7"/>
+      <rect x="74" y="30" width="14" height="14" fill="#1a3a5c" opacity=".7"/>
+      <rect x="38" y="48" width="14" height="14" fill="#16324f" opacity=".7"/>
+      <rect x="56" y="48" width="14" height="14" fill="#1a3a5c" opacity=".7"/>
+      <rect x="74" y="48" width="14" height="14" fill="#16324f" opacity=".7"/>
+      <rect x="38" y="66" width="14" height="14" fill="#1a3a5c" opacity=".7"/>
+      <rect x="56" y="66" width="14" height="14" fill="#16324f" opacity=".7"/>
+      <rect x="74" y="66" width="14" height="14" fill="#1a3a5c" opacity=".7"/>
+      <rect x="38" y="84" width="14" height="14" fill="#16324f" opacity=".7"/>
+      <rect x="56" y="84" width="14" height="14" fill="#1a3a5c" opacity=".7"/>
+      <rect x="74" y="84" width="14" height="14" fill="#16324f" opacity=".7"/>`;
+    body = `<rect width="120" height="130" fill="#0d1f33"/>${pattern}`;
+  }
+
+  const mouw = t.mouw || t.basis;
+  const rand = t.rand || "#222";
+  const kraag = t.kraag || "#222";
+
+  return `<svg viewBox="0 0 120 130" aria-hidden="true">
+    <defs><clipPath id="c-${t.id}"><path d="${SHIRT}"/></clipPath></defs>
+    <g clip-path="url(#c-${t.id})">
+      ${body}
+      <!-- mouwen -->
       <path d="M30 14 L10 28 L20 52 L34 46 Z M90 14 L110 28 L100 52 L86 46 Z" fill="${mouw}"/>
       ${t.zij ? `<rect x="34" y="70" width="5" height="48" fill="${t.zij}"/><rect x="81" y="70" width="5" height="48" fill="${t.zij}"/>` : ""}
-      <path d="M12 31 L20 52 L27 49 L19 27 Z M108 31 L100 52 L93 49 L101 27 Z" fill="${t.rand}"/></g>
-    <path d="${SHIRT}" fill="none" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
-    <path d="M44 16 Q60 34 76 16" fill="none" stroke="${t.kraag}" stroke-width="6" stroke-linecap="round"/></svg>`;
+      <!-- manchetten / rand -->
+      <path d="M12 31 L20 52 L27 49 L19 27 Z M108 31 L100 52 L93 49 L101 27 Z" fill="${rand}"/>
+    </g>
+    <path d="${SHIRT}" fill="none" stroke="#222" stroke-width="1.6" stroke-linejoin="round"/>
+    <!-- kraag -->
+    <path d="M44 16 Q60 34 76 16" fill="none" stroke="${kraag}" stroke-width="6" stroke-linecap="round"/>
+  </svg>`;
 }
+
 const TENUES = [
-  { id: "thuis", naam: "Thuisshirt", info: "Rood-wit gestreept, zwarte kraag", basis: "#e2001a", strepen: true, mouw: "#e2001a", rand: "#111", kraag: "#111" },
-  { id: "uit",   naam: "Uitshirt",   info: "Wit met oranje, roze en paars", basis: "#ffffff", mouw: "#ffffff", rand: "#ff7a1a", kraag: "#ff7a1a", zij: "#7b3fa0" },
-  { id: "derde", naam: "Derde shirt",info: "Donkerblauw met turquoise",   basis: "#10233f", mouw: "#10233f", rand: "#17c3c3", kraag: "#17c3c3" },
+  {
+    id: "thuis",
+    naam: "Thuisshirt",
+    info: "Rood-wit gestreept · zwarte kraag & manchetten",
+    basis: "#e2001a",
+    mouw: "#e2001a",
+    rand: "#111",
+    kraag: "#111"
+  },
+  {
+    id: "uit",
+    naam: "Uitshirt",
+    info: "Wit · oranje kraag · roze & paarse accenten (Eindhovense zonsopkomst)",
+    basis: "#ffffff",
+    mouw: "#ffffff",
+    rand: "#ff7a1a",
+    kraag: "#ff7a1a",
+    zij: "#7b3fa0"
+  },
+  {
+    id: "derde",
+    naam: "Derde shirt",
+    info: "Navy met geometrisch patroon · cyan accenten (fan-design)",
+    basis: "#0d1f33",
+    mouw: "#0d1f33",
+    rand: "#17c3c3",
+    kraag: "#17c3c3"
+  },
 ];
-$("#kitGrid").innerHTML = TENUES.map(t => `<div class="kit"><div class="art" id="art-${t.id}">${shirt(t)}</div><b>${t.naam}</b><small>${t.info}</small></div>`).join("");
-TENUES.forEach(t => { const img = new Image(); img.alt = t.naam;
+
+$("#kitGrid").innerHTML = TENUES.map(t =>
+  `<div class="kit"><div class="art" id="art-${t.id}">${shirt(t)}</div><b>${t.naam}</b><small>${t.info}</small></div>`
+).join("");
+
+// Optioneel: als er echte foto's in /tenues/ staan, die gebruiken
+TENUES.forEach(t => {
+  const img = new Image();
+  img.alt = t.naam;
   img.onload = () => { $("#art-" + t.id).replaceChildren(img); };
-  img.src = "tenues/" + t.id + ".png"; });
+  img.src = "tenues/" + t.id + ".png";
+});
