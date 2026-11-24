@@ -120,7 +120,19 @@ function tekenOpstelling() {
   });
 }
 
-tekenFilter(); tekenSpelers(); tekenUitslagen(); tekenOpstelling();
+/* ---------- Staf ---------- */
+function tekenStaf() {
+  const card = p => `<div class="staf-card">
+    <div class="staf-naam">${esc(p.naam)}</div>
+    <div class="staf-functie">${esc(p.functie)}</div>
+    ${p.info ? `<div class="staf-info">${esc(p.info)}</div>` : ""}
+  </div>`;
+  $("#stafTrainers").innerHTML = STAF.trainers.map(card).join("");
+  $("#stafMedisch").innerHTML = STAF.medisch.map(card).join("");
+  $("#stafPerformance").innerHTML = STAF.performance.map(card).join("");
+}
+
+tekenFilter(); tekenSpelers(); tekenUitslagen(); tekenOpstelling(); tekenStaf();
 
 /* ---------- Tenues 2026/27 ---------- */
 const SHIRT = "M30 14 L10 28 L20 52 L34 46 L34 118 H86 V46 L100 52 L110 28 L90 14 Q60 32 30 14 Z";
@@ -158,7 +170,7 @@ function shirt(t) {
       ${body}
       <path d="M30 14 L10 28 L20 52 L34 46 Z M90 14 L110 28 L100 52 L86 46 Z" fill="${mouw}"/>
       ${t.zij ? `<rect x="34" y="70" width="5" height="48" fill="${t.zij}"/><rect x="81" y="70" width="5" height="48" fill="${t.zij}"/>` : ""}
-      <path d="M12 31 L20 52 L27 49 L19 27 Z M108 31 L100 52 L93 49 L101 27 Z" fill="${rand}"/>
+      <path d="M12 31 L20 52 L27 49 L101 27 Z" fill="${rand}"/>
     </g>
     <path d="${SHIRT}" fill="none" stroke="#222" stroke-width="1.6" stroke-linejoin="round"/>
     <path d="M44 16 Q60 34 76 16" fill="none" stroke="${kraag}" stroke-width="6" stroke-linecap="round"/>
