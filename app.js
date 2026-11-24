@@ -4,11 +4,13 @@ const fmtDatum = (iso, lang = "nl-NL") =>
 const kort = iso => new Date(iso + "T12:00:00").toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "short" });
 const badgeKlasse = c => c === "Champions League" ? "cl" : c === "KNVB Beker" ? "bk" : "er";
 const wedstrijdTekst = m => m.thuis ? `PSV – ${m.tegenstander}` : `${m.tegenstander} – PSV`;
-const esc = s => String(s)
-  .replace(/&/g, "&")
-  .replace(/</g, "<")
-  .replace(/>/g, ">")
-  .replace(/"/g, """);
+
+// Veilige escape-functie die niet kapot kan gaan
+function esc(s) {
+  const d = document.createElement("div");
+  d.textContent = s;
+  return d.innerHTML;
+}
 
 /* ---------- Tabs ---------- */
 document.querySelectorAll("#nav button").forEach(b => b.addEventListener("click", () => {
