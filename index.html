@@ -2,539 +2,72 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PSV Eindhoven – Philips Sport Vereniging</title>
-  <meta name="description" content="Alles over PSV Eindhoven: geschiedenis, Philips Stadion, successen en meer.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --psv-red: #E30613;
-      --psv-dark: #1a1a1a;
-      --psv-white: #ffffff;
-      --psv-gray: #f5f5f5;
-      --psv-text: #222;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      color: var(--psv-text);
-      line-height: 1.6;
-      background: var(--psv-white);
-    }
-
-    /* Header */
-    header {
-      background: var(--psv-dark);
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 70px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      font-size: 1.5rem;
-      letter-spacing: -0.5px;
-    }
-
-    .logo-badge {
-      background: var(--psv-red);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--psv-red);
-    }
-
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 50%, #E30613 100%);
-      color: white;
-      padding: 6rem 1.5rem 5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
-      background-size: 80px;
-      opacity: 0.5;
-    }
-
-    .hero-content {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 8vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero .subtitle {
-      font-size: 1.35rem;
-      opacity: 0.9;
-      margin-bottom: 2rem;
-      font-weight: 400;
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      margin-top: 2.5rem;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: white;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-top: 0.3rem;
-    }
-
-    /* Sections */
-    section {
-      padding: 5rem 1.5rem;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.5px;
-    }
-
-    h2 span {
-      color: var(--psv-red);
-    }
-
-    .section-intro {
-      font-size: 1.15rem;
-      color: #555;
-      max-width: 700px;
-      margin-bottom: 2.5rem;
-    }
-
-    /* About cards */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--psv-gray);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    }
-
-    .card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: var(--psv-dark);
-    }
-
-    .card p {
-      color: #555;
-      font-size: 0.95rem;
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--psv-red);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.2rem;
-      color: white;
-      font-size: 1.4rem;
-    }
-
-    /* History */
-    .history {
-      background: var(--psv-gray);
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-      border-left: 3px solid var(--psv-red);
-    }
-
-    .timeline-item {
-      margin-bottom: 2.5rem;
-      position: relative;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -2.4rem;
-      top: 6px;
-      width: 14px;
-      height: 14px;
-      background: var(--psv-red);
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px var(--psv-red);
-    }
-
-    .timeline-year {
-      font-weight: 700;
-      color: var(--psv-red);
-      font-size: 0.95rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .timeline-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.4rem;
-    }
-
-    /* Stadium */
-    .stadium-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    @media (max-width: 768px) {
-      .stadium-grid {
-        grid-template-columns: 1fr;
-      }
-      nav ul {
-        display: none;
-      }
-    }
-
-    .stadium-info li {
-      list-style: none;
-      padding: 0.7rem 0;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .stadium-info li strong {
-      color: var(--psv-dark);
-    }
-
-    /* Trophies */
-    .trophies {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1.5rem;
-      text-align: center;
-    }
-
-    .trophy {
-      background: white;
-      border: 2px solid #eee;
-      border-radius: 16px;
-      padding: 1.8rem 1rem;
-    }
-
-    .trophy-number {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--psv-red);
-      line-height: 1;
-    }
-
-    .trophy-label {
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 0.4rem;
-      font-weight: 500;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--psv-dark);
-      color: white;
-      padding: 3rem 1.5rem;
-      text-align: center;
-    }
-
-    footer a {
-      color: var(--psv-red);
-      text-decoration: none;
-    }
-
-    footer p {
-      opacity: 0.7;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    .cta {
-      display: inline-block;
-      background: var(--psv-red);
-      color: white;
-      padding: 0.9rem 1.8rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 1.5rem;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .cta:hover {
-      background: #c00510;
-      transform: translateY(-2px);
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PSV Fansite</title>
+  <meta name="description" content="Een fansite over PSV: spelers, wedstrijden, uitslagen en opstelling.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="nav-container">
-      <div class="logo">
-        <div class="logo-badge">PSV</div>
-        <span>Eindhoven</span>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#over">Over</a></li>
-          <li><a href="#geschiedenis">Geschiedenis</a></li>
-          <li><a href="#stadion">Stadion</a></li>
-          <li><a href="#prestaties">Prestaties</a></li>
-        </ul>
+  <header class="top">
+    <div class="wrap top-in">
+      <div class="logo"><span class="ball">⚽</span> PSV <small>fansite</small></div>
+      <nav id="nav">
+        <button data-tab="spelers" class="active">Spelers</button>
+        <button data-tab="wedstrijden">Wedstrijden</button>
+        <button data-tab="uitslagen">Uitslagen</button>
+        <button data-tab="opstelling">Opstelling</button>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>PSV Eindhoven</h1>
-      <p class="subtitle">Philips Sport Vereniging · Sinds 1913</p>
-      <p style="max-width: 560px; margin: 0 auto; opacity: 0.85;">
-        Eén van de grootste en meest succesvolle clubs van Nederland. 
-        Rood-wit, trots en altijd vooruit.
-      </p>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-number">27</div>
-          <div class="stat-label">Landstitels</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">1</div>
-          <div class="stat-label">Europacup I</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">35.000</div>
-          <div class="stat-label">Capaciteit stadion</div>
-        </div>
-      </div>
+  <section class="next-strip"><div class="wrap"><div id="next" class="next"></div></div></section>
+
+  <section class="kits">
+    <div class="wrap">
+      <div class="kits-head"><img class="club-logo" src="logo.png" alt="" onerror="this.remove()"><h2>Tenues 2026/27</h2></div>
+      <div class="kit-grid" id="kitGrid"></div>
+      <p class="muted small">Illustraties in de kleuren van de tenues. Zet eigen foto's in de map <code>tenues</code> (thuis.png, uit.png, derde.png) en <code>logo.png</code> in de hoofdmap om ze te laten zien.</p>
     </div>
   </section>
 
-  <section id="over">
-    <div class="container">
-      <h2>Over <span>PSV</span></h2>
-      <p class="section-intro">
-        PSV is ontstaan uit de sportvereniging van Philips-medewerkers. 
-        Vandaag de dag is het een topclub die meespeelt om de prijzen in Nederland en Europa.
-      </p>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon">🏆</div>
-          <h3>De Big Three</h3>
-          <p>Samen met Ajax en Feyenoord vormt PSV de traditionele top van het Nederlandse voetbal.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">💡</div>
-          <h3>Lampen</h3>
-          <p>De bijnaam "Lampen" verwijst naar de oorsprong bij Philips, de gloeilampenfabriek.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🔴</div>
-          <h3>Rood-witten</h3>
-          <p>De clubkleuren rood en wit zijn al meer dan een eeuw het handelsmerk van PSV.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <main class="wrap">
+    <section id="spelers" class="tab active">
+      <h2>Spelers</h2>
+      <div class="filters" id="posFilter"></div>
+      <div class="grid" id="spelerGrid"></div>
+    </section>
 
-  <section id="geschiedenis" class="history">
-    <div class="container">
-      <h2>Geschiedenis</h2>
-      <p class="section-intro">Van personeelsclub tot Europese top.</p>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">1913</div>
-          <h3>Oprichting</h3>
-          <p>Op 31 augustus 1913 wordt de Philips Sport Vereniging opgericht als sportclub voor Philips-medewerkers.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1929</div>
-          <h3>Eerste landstitel</h3>
-          <p>PSV pakt voor het eerst de nationale titel.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1978</div>
-          <h3>UEFA Cup</h3>
-          <p>PSV wint de UEFA Cup en schrijft Europese geschiedenis.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1988</div>
-          <h3>Het Gouden Jaar</h3>
-          <p>Onder Guus Hiddink wint PSV de Europacup I, de landstitel én de KNVB Beker – de treble.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2024–2026</div>
-          <h3>Moderne dominantie</h3>
-          <p>PSV pakt opnieuw meerdere landstitels en speelt een hoofdrol in de Eredivisie.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <section id="wedstrijden" class="tab">
+      <h2>Aankomende wedstrijden</h2>
+      <div id="programma" class="list"></div>
+    </section>
 
-  <section id="stadion">
-    <div class="container">
-      <h2>Philips <span>Stadion</span></h2>
-      <div class="stadium-grid">
-        <div>
-          <p class="section-intro" style="margin-bottom: 1.5rem;">
-            Het Philips Stadion is al sinds de oprichting de thuishaven van PSV. 
-            Het ligt midden in Eindhoven en is één van de sfeervolste stadions van Nederland.
-          </p>
-          <ul class="stadium-info">
-            <li><span>Capaciteit</span> <strong>35.119</strong></li>
-            <li><span>Geopend</span> <strong>1913</strong></li>
-            <li><span>Locatie</span> <strong>Frederiklaan, Eindhoven</strong></li>
-            <li><span>Recordbezoek</span> <strong>35.292</strong></li>
-          </ul>
-        </div>
-        <div>
-          <div class="card" style="background: linear-gradient(135deg, #1a1a1a, #E30613); color: white; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-            <h3 style="color: white; font-size: 1.5rem;">Thuisbasis sinds 1913</h3>
-            <p style="opacity: 0.9; margin-top: 0.8rem;">
-              Uniek in Nederland: PSV speelt al meer dan 110 jaar op precies dezelfde locatie.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <section id="uitslagen" class="tab">
+      <h2>Uitslagen</h2>
+      <div class="filters" id="seizoenFilter"></div>
+      <div id="uitslagStats" class="stats"></div>
+      <div id="uitslagen-lijst" class="list"></div>
+    </section>
 
-  <section id="prestaties" style="background: var(--psv-gray);">
-    <div class="container">
-      <h2>Prestaties</h2>
-      <p class="section-intro">De prijzenkast van PSV is indrukwekkend.</p>
-      <div class="trophies">
-        <div class="trophy">
-          <div class="trophy-number">27</div>
-          <div class="trophy-label">Eredivisie / Landstitels</div>
-        </div>
-        <div class="trophy">
-          <div class="trophy-number">11</div>
-          <div class="trophy-label">KNVB Bekers</div>
-        </div>
-        <div class="trophy">
-          <div class="trophy-number">15</div>
-          <div class="trophy-label">Johan Cruijff Schalen</div>
-        </div>
-        <div class="trophy">
-          <div class="trophy-number">1</div>
-          <div class="trophy-label">Europacup I</div>
-        </div>
-        <div class="trophy">
-          <div class="trophy-number">1</div>
-          <div class="trophy-label">UEFA Cup</div>
-        </div>
-      </div>
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="https://www.psv.nl" target="_blank" rel="noopener" class="cta">Bezoek de officiële site →</a>
-      </div>
+    <section id="opstelling" class="tab">
+      <h2>Opstelling</h2>
+      <p id="opsInfo" class="muted"></p>
+      <div class="pitch" id="pitch"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="card" role="dialog" aria-modal="true">
+      <button class="close" id="closeModal" aria-label="Sluiten">×</button>
+      <div id="modalBody"></div>
     </div>
-  </section>
+  </div>
 
   <footer>
-    <div class="container">
-      <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
-        <div class="logo-badge">PSV</div>
-        <span>Eindhoven</span>
-      </div>
-      <p>Gemaakt met ❤️ voor de fans · Niet de officiële clubwebsite</p>
-      <p style="margin-top: 0.8rem; font-size: 0.8rem;">
-        Data gebaseerd op openbare bronnen · <a href="https://github.com/lauravangaalen/psv">GitHub</a>
-      </p>
-    </div>
+    <div class="wrap">Onofficiële fansite · niet verbonden aan PSV · gegevens kunnen fouten bevatten.</div>
   </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

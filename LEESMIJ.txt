@@ -1,0 +1,6 @@
+EIGEN FOTO'S TOEVOEGEN
+- Spelers: zet een foto in de map "spelers" met het rugnummer als naam, bv. 9.jpg (of 9.png).
+  Spelers zonder rugnummer: khadim-ngom.jpg en seb-huntelaar.jpg
+- Tenues: tenues/thuis.png, tenues/uit.png, tenues/derde.png
+- Logo: logo.png in de hoofdmap
+Zonder foto blijft het schild met nummer of de illustratie staan.
