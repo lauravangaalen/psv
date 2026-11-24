@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PSV Fansite</title>
-  <meta name="description" content="Een fansite over PSV: spelers, wedstrijden, uitslagen en opstelling.">
+  <meta name="description" content="Een fansite over PSV: spelers, wedstrijden, uitslagen, opstelling en staf.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,6 +16,7 @@
         <button data-tab="wedstrijden">Wedstrijden</button>
         <button data-tab="uitslagen">Uitslagen</button>
         <button data-tab="opstelling">Opstelling</button>
+        <button data-tab="staf">Staf</button>
       </nav>
     </div>
   </header>
@@ -53,6 +54,17 @@
       <h2>Opstelling</h2>
       <p id="opsInfo" class="muted"></p>
       <div class="pitch" id="pitch"></div>
+    </section>
+
+    <section id="staf" class="tab">
+      <h2>Technische staf</h2>
+      <div class="staf-grid" id="stafTrainers"></div>
+
+      <h2 class="staf-sub">Medische staf</h2>
+      <div class="staf-grid" id="stafMedisch"></div>
+
+      <h2 class="staf-sub">Performance</h2>
+      <div class="staf-grid" id="stafPerformance"></div>
     </section>
   </main>
 
