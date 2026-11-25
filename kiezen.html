@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kies je club · PSV of De Graafschap</title>
+  <meta name="description" content="Kies PSV of De Graafschap en lees meer over de club.">
+  <style>
+    :root {
+      --psv: #e2001a;
+      --psv-dark: #9d0012;
+      --graaf: #0093d0;
+      --graaf-dark: #004f91;
+      --ink: #1a1a1a;
+      --muted: #5a5a5a;
+      --bg: #f4f6f8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    #keuze {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 40px;
+      gap: 28px;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(226,0,26,0.08), transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0,147,208,0.1), transparent 50%),
+        var(--bg);
+    }
+    #keuze h1 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    #keuze .sub {
+      color: var(--muted);
+      text-align: center;
+      max-width: 420px;
+      margin-top: -12px;
+    }
+    .knoppen {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 640px;
+    }
+    @media (max-width: 560px) {
+      .knoppen { grid-template-columns: 1fr; max-width: 320px; }
+    }
+    .club-btn {
+      border: none;
+      cursor: pointer;
+      background: #fff;
+      border-radius: 24px;
+      padding: 28px 20px 24px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      font: inherit;
+      color: inherit;
+    }
+    .club-btn:hover, .club-btn:focus-visible {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+      outline: none;
+    }
+    .club-btn:focus-visible { outline: 3px solid #333; outline-offset: 3px; }
+    .club-btn .logo-wrap {
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .club-btn .logo-wrap svg { width: 100%; height: 100%; }
+    .club-btn .naam {
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+    .club-btn.psv .naam { color: var(--psv); }
+    .club-btn.graaf .naam { color: var(--graaf-dark); }
+    .club-btn .hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .info {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    .info.open { display: flex; }
+    .info-top {
+      padding: 18px 16px 28px;
+      color: #fff;
+    }
+    .info.psv .info-top {
+      background: linear-gradient(160deg, var(--psv) 0%, var(--psv-dark) 100%);
+    }
+    .info.graaf .info-top {
+      background: linear-gradient(160deg, var(--graaf) 0%, var(--graaf-dark) 100%);
+    }
+    .info-top .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .terug {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .terug:hover { background: rgba(255,255,255,0.3); }
+    .info-hero {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .info-hero .badge {
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+    }
+    .info-hero .badge svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25)); }
+    .info-hero h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      line-height: 1.15;
+    }
+    .info-hero .bijnaam {
+      opacity: 0.9;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .info-body {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+      width: 100%;
+    }
+    .kaarten {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .kaart {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      border: 1px solid #e8eaed;
+    }
+    .kaart dt {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .kaart dd {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-top: 2px;
+    }
+    .info.psv .kaart dd { color: var(--psv); }
+    .info.graaf .kaart dd { color: var(--graaf-dark); }
+    .blok {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 22px;
+      border: 1px solid #e8eaed;
+      margin-bottom: 16px;
+    }
+    .blok h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .info.psv .blok h3 { color: var(--psv); }
+    .info.graaf .blok h3 { color: var(--graaf-dark); }
+    .blok p, .blok ul { color: #333; }
+    .blok ul { padding-left: 1.2em; margin-top: 6px; }
+    .blok li { margin: 4px 0; }
+    footer.site {
+      text-align: center;
+      padding: 16px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <section id="keuze">
+    <h1>Kies je club</h1>
+    <p class="sub">Klik op een logo om meer te lezen over PSV of De Graafschap.</p>
+    <div class="knoppen">
+      <button type="button" class="club-btn psv" id="btnPsv" aria-label="PSV kiezen">
+        <div class="logo-wrap" aria-hidden="true">
+          <svg viewBox="0 0 120 120" role="img">
+            <ellipse cx="60" cy="60" rx="54" ry="54" fill="#e2001a"/>
+            <ellipse cx="60" cy="60" rx="46" ry="46" fill="#fff"/>
+            <ellipse cx="60" cy="60" rx="40" ry="40" fill="#e2001a"/>
+            <text x="60" y="72" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-weight="900" font-size="28" letter-spacing="1">PSV</text>
+          </svg>
+        </div>
+        <span class="naam">PSV</span>
+        <span class="hint">Eindhoven · Eredivisie</span>
+      </button>
+
+      <button type="button" class="club-btn graaf" id="btnGraaf" aria-label="De Graafschap kiezen">
+        <div class="logo-wrap" aria-hidden="true">
+          <svg viewBox="0 0 120 120" role="img">
+            <circle cx="60" cy="60" r="54" fill="#0093d0"/>
+            <circle cx="60" cy="60" r="46" fill="#fff"/>
+            <circle cx="60" cy="60" r="40" fill="#0093d0"/>
+            <text x="60" y="78" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-weight="700" font-size="48">G</text>
+          </svg>
+        </div>
+        <span class="naam">De Graafschap</span>
+        <span class="hint">Doetinchem · Superboeren</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="info psv" id="infoPsv" aria-labelledby="psv-titel">
+    <div class="info-top">
+      <div class="wrap">
+        <button type="button" class="terug" data-back>← Terug naar keuze</button>
+        <div class="info-hero">
+          <div class="badge" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <ellipse cx="60" cy="60" rx="54" ry="54" fill="#fff"/>
+              <ellipse cx="60" cy="60" rx="46" ry="46" fill="#e2001a"/>
+              <text x="60" y="72" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-weight="900" font-size="28">PSV</text>
+            </svg>
+          </div>
+          <div>
+            <h2 id="psv-titel">PSV Eindhoven</h2>
+            <p class="bijnaam">Philips Sport Vereniging · Rood-witten</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-body">
+      <dl class="kaarten">
+        <div class="kaart"><dt>Opgericht</dt><dd>31 aug 1913</dd></div>
+        <div class="kaart"><dt>Plaats</dt><dd>Eindhoven</dd></div>
+        <div class="kaart"><dt>Stadion</dt><dd>Philips Stadion</dd></div>
+        <div class="kaart"><dt>Capaciteit</dt><dd>35.000</dd></div>
+        <div class="kaart"><dt>Competitie</dt><dd>Eredivisie</dd></div>
+        <div class="kaart"><dt>Trainer</dt><dd>Peter Bosz</dd></div>
+      </dl>
+      <div class="blok">
+        <h3>Over de club</h3>
+        <p>PSV is een van de grootste clubs van Nederland. De naam staat voor <strong>Philips Sport Vereniging</strong>: de club werd in 1913 opgericht door medewerkers van Philips. Thuiswedstrijden speelt PSV in het Philips Stadion in Eindhoven.</p>
+      </div>
+      <div class="blok">
+        <h3>Successen</h3>
+        <ul>
+          <li>Meervoudig landskampioen van Nederland</li>
+          <li>Winnaar van de KNVB Beker en Johan Cruijff Schaal</li>
+          <li>Europacup I-winnaar in 1988</li>
+          <li>UEFA Cup-winnaar in 1978</li>
+        </ul>
+      </div>
+      <div class="blok">
+        <h3>Kleuren &amp; sfeer</h3>
+        <p>Het klassieke tenue is rood-wit gestreept. De aanhang en de sfeer in het Philips Stadion horen bij de top van de Eredivisie. Het trainingscomplex is De Herdgang.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="info graaf" id="infoGraaf" aria-labelledby="graaf-titel">
+    <div class="info-top">
+      <div class="wrap">
+        <button type="button" class="terug" data-back>← Terug naar keuze</button>
+        <div class="info-hero">
+          <div class="badge" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" fill="#fff"/>
+              <circle cx="60" cy="60" r="46" fill="#0093d0"/>
+              <text x="60" y="78" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-weight="700" font-size="48">G</text>
+            </svg>
+          </div>
+          <div>
+            <h2 id="graaf-titel">De Graafschap</h2>
+            <p class="bijnaam">Superboeren · Doetinchem</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-body">
+      <dl class="kaarten">
+        <div class="kaart"><dt>Opgericht</dt><dd>1 feb 1954</dd></div>
+        <div class="kaart"><dt>Plaats</dt><dd>Doetinchem</dd></div>
+        <div class="kaart"><dt>Stadion</dt><dd>De Vijverberg</dd></div>
+        <div class="kaart"><dt>Capaciteit</dt><dd>12.600</dd></div>
+        <div class="kaart"><dt>Competitie</dt><dd>Keuken Kampioen Divisie</dd></div>
+        <div class="kaart"><dt>Bijnaam</dt><dd>Superboeren</dd></div>
+      </dl>
+      <div class="blok">
+        <h3>Over de club</h3>
+        <p><strong>De Graafschap</strong> is de trots van de Achterhoek. De club uit Doetinchem bestaat sinds 1954 en is de enige club uit de oude NBVB die nog als zelfstandige profclub speelt. De naam verwijst naar de streek De Graafschap (rond Zutphen).</p>
+      </div>
+      <div class="blok">
+        <h3>Superboeren</h3>
+        <p>De bijnaam <strong>Superboeren</strong> staat voor strijd, sfeer en saamhorigheid. De aanhang is bekend om de warme, plattelandse supportersmentaliteit. Thuis is het stadion <strong>De Vijverberg</strong>, met de fanatieke Spinnekop-tribune.</p>
+      </div>
+      <div class="blok">
+        <h3>Kleuren &amp; karakter</h3>
+        <p>Het traditionele shirt is blauw-wit horizontaal gestreept, in de kleuren van de stad Doetinchem. Trainingen vinden plaats op Sportpark De Bezelhorst.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site">Onofficiële fansite · niet verbonden aan PSV of De Graafschap</footer>
+
+  <script>
+    const keuze = document.getElementById("keuze");
+    const infoPsv = document.getElementById("infoPsv");
+    const infoGraaf = document.getElementById("infoGraaf");
+
+    function toon(club) {
+      keuze.style.display = "none";
+      infoPsv.classList.toggle("open", club === "psv");
+      infoGraaf.classList.toggle("open", club === "graaf");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function terug() {
+      infoPsv.classList.remove("open");
+      infoGraaf.classList.remove("open");
+      keuze.style.display = "flex";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("btnPsv").addEventListener("click", () => toon("psv"));
+    document.getElementById("btnGraaf").addEventListener("click", () => toon("graaf"));
+    document.querySelectorAll("[data-back]").forEach(b => b.addEventListener("click", terug));
+  </script>
+</body>
+</html>
