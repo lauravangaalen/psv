@@ -1,5 +1,5 @@
 // ====== PSV-gegevens (hier kun je alles makkelijk aanpassen) ======
-// Gegevens verzameld op 24 nov 2026 van o.a. UEFA, ESPN, FotMob, voetbalkrant. Controleer ze gerust!
+// Gegevens verzameld op 25 nov 2026. Controleer ze gerust!
 
 const SPELERS = [
   // nr, naam, positie, land, leeftijd
@@ -33,70 +33,48 @@ const SPELERS = [
   { nr: null, naam: "Seb Huntelaar",      pos: "Aanvaller",     land: "Nederland",       leeftijd: null },
 ];
 
-// Wedstrijden die nog moeten komen. tijd: null = nog niet bekend
+// Wedstrijden die nog moeten komen
 const PROGRAMMA = [
-  { datum: "2026-11-24", tijd: "21:00", comp: "Champions League", thuis: false, tegenstander: "Real Madrid", plaats: "Estadio Santiago Bernabéu, Madrid" },
-  { datum: "2026-11-28", tijd: null,    comp: "Eredivisie",       thuis: true,  tegenstander: "Go Ahead Eagles", plaats: "Philips Stadion, Eindhoven" },
-  { datum: "2026-12-02", tijd: null,    comp: "KNVB Beker",       thuis: true,  tegenstander: "Vitesse", plaats: "Philips Stadion, Eindhoven" },
-  { datum: "2026-12-05", tijd: null,    comp: "Eredivisie",       thuis: false, tegenstander: "AZ", plaats: "Alkmaar" },
+  { datum: "2026-11-28", tijd: "18:45", comp: "Eredivisie",       thuis: true,  tegenstander: "Go Ahead Eagles", plaats: "Philips Stadion, Eindhoven" },
+  { datum: "2026-12-05", tijd: "20:00", comp: "Eredivisie",       thuis: false, tegenstander: "AZ", plaats: "Alkmaar" },
   { datum: "2026-12-09", tijd: "21:00", comp: "Champions League", thuis: true,  tegenstander: "Atlético Madrid", plaats: "Philips Stadion, Eindhoven" },
-  { datum: "2026-12-13", tijd: null,    comp: "Eredivisie",       thuis: true,  tegenstander: "Telstar", plaats: "Philips Stadion, Eindhoven" },
+  { datum: "2026-12-13", tijd: "12:15", comp: "Eredivisie",       thuis: true,  tegenstander: "Telstar", plaats: "Philips Stadion, Eindhoven" },
   { datum: "2026-12-20", tijd: "20:00", comp: "Eredivisie",       thuis: true,  tegenstander: "PEC Zwolle", plaats: "Philips Stadion, Eindhoven" },
 ];
 
 // Uitslagen. psv = doelpunten PSV, tg = doelpunten tegenstander
 const UITSLAGEN = {
   "2026/27 (dit seizoen)": [
+    { datum: "2026-11-24", comp: "Champions League", thuis: false, tegenstander: "Real Madrid",     psv: 1, tg: 5 },
     { datum: "2026-11-21", comp: "Eredivisie",       thuis: false, tegenstander: "NEC",             psv: 4, tg: 1 },
-  ],
-  "2025/26": [
-    { datum: "2026-05-18", comp: "Eredivisie",       thuis: true,  tegenstander: "Sparta Rotterdam",psv: 3, tg: 1 },
-    { datum: "2026-05-14", comp: "Eredivisie",       thuis: false, tegenstander: "Ajax",            psv: 2, tg: 2 },
-    { datum: "2026-05-10", comp: "Eredivisie",       thuis: true,  tegenstander: "FC Twente",       psv: 4, tg: 0 },
-    { datum: "2026-05-03", comp: "Eredivisie",       thuis: false, tegenstander: "Feyenoord",       psv: 1, tg: 0 },
-    { datum: "2026-04-26", comp: "Eredivisie",       thuis: true,  tegenstander: "AZ",              psv: 2, tg: 1 },
-    { datum: "2026-04-13", comp: "Eredivisie",       thuis: false, tegenstander: "Utrecht",         psv: 3, tg: 1 },
-    { datum: "2026-04-05", comp: "Eredivisie",       thuis: true,  tegenstander: "Heerenveen",      psv: 5, tg: 0 },
-    { datum: "2026-03-29", comp: "Eredivisie",       thuis: false, tegenstander: "Go Ahead Eagles", psv: 2, tg: 1 },
-    { datum: "2026-03-15", comp: "Eredivisie",       thuis: true,  tegenstander: "NEC",             psv: 3, tg: 0 },
-    { datum: "2026-03-08", comp: "Eredivisie",       thuis: false, tegenstander: "Fortuna Sittard", psv: 4, tg: 1 },
-    { datum: "2026-03-01", comp: "Eredivisie",       thuis: true,  tegenstander: "Excelsior",       psv: 2, tg: 0 },
-    { datum: "2026-02-22", comp: "Eredivisie",       thuis: false, tegenstander: "Heracles",        psv: 1, tg: 1 },
-    { datum: "2026-02-15", comp: "Eredivisie",       thuis: true,  tegenstander: "PEC Zwolle",      psv: 3, tg: 0 },
-    { datum: "2026-02-08", comp: "Eredivisie",       thuis: false, tegenstander: "RKC Waalwijk",    psv: 2, tg: 1 },
-    { datum: "2026-02-01", comp: "Eredivisie",       thuis: true,  tegenstander: "Almere City",     psv: 4, tg: 0 },
-    { datum: "2026-01-25", comp: "Eredivisie",       thuis: false, tegenstander: "Willem II",       psv: 3, tg: 1 },
-    { datum: "2026-01-18", comp: "Eredivisie",       thuis: true,  tegenstander: "Groningen",       psv: 2, tg: 0 },
-    { datum: "2026-01-11", comp: "Eredivisie",       thuis: false, tegenstander: "Twente",          psv: 1, tg: 0 },
-    { datum: "2025-12-21", comp: "Eredivisie",       thuis: true,  tegenstander: "Ajax",            psv: 3, tg: 1 },
-    { datum: "2025-12-14", comp: "Eredivisie",       thuis: false, tegenstander: "Feyenoord",       psv: 2, tg: 2 },
-    { datum: "2025-12-11", comp: "Champions League", thuis: true,  tegenstander: "Atlético Madrid", psv: 2, tg: 3 },
-    { datum: "2025-12-06", comp: "Eredivisie",       thuis: false, tegenstander: "Heerenveen",      psv: 2, tg: 0 },
-    { datum: "2025-11-30", comp: "Eredivisie",       thuis: true,  tegenstander: "FC Volendam",     psv: 3, tg: 0 },
-    { datum: "2025-11-26", comp: "Champions League", thuis: false, tegenstander: "Liverpool",       psv: 4, tg: 1 },
-    { datum: "2025-11-22", comp: "Eredivisie",       thuis: false, tegenstander: "NAC Breda",       psv: 1, tg: 0 },
-    { datum: "2025-11-09", comp: "Eredivisie",       thuis: false, tegenstander: "AZ",              psv: 5, tg: 1 },
-    { datum: "2025-11-04", comp: "Champions League", thuis: false, tegenstander: "Olympiacos",      psv: 1, tg: 1 },
-    { datum: "2025-10-31", comp: "Eredivisie",       thuis: true,  tegenstander: "Fortuna Sittard", psv: 5, tg: 2 },
-    { datum: "2025-10-26", comp: "Eredivisie",       thuis: false, tegenstander: "Feyenoord",       psv: 3, tg: 2 },
-    { datum: "2025-10-01", comp: "Champions League", thuis: false, tegenstander: "Bayer Leverkusen",psv: 1, tg: 1 },
-    { datum: "2025-09-27", comp: "Eredivisie",       thuis: false, tegenstander: "Excelsior",       psv: 2, tg: 1 },
-    { datum: "2025-09-13", comp: "Eredivisie",       thuis: false, tegenstander: "NEC",             psv: 5, tg: 3 },
-    { datum: "2025-08-17", comp: "Eredivisie",       thuis: false, tegenstander: "FC Twente",       psv: 2, tg: 0 },
-    { datum: "2025-08-09", comp: "Eredivisie",       thuis: true,  tegenstander: "Sparta Rotterdam",psv: 6, tg: 1 },
+    { datum: "2026-11-08", comp: "Eredivisie",       thuis: false, tegenstander: "SC Cambuur",      psv: 5, tg: 2 },
+    { datum: "2026-11-04", comp: "Champions League", thuis: true,  tegenstander: "Club Brugge",     psv: 1, tg: 2 },
+    { datum: "2026-10-31", comp: "Eredivisie",       thuis: true,  tegenstander: "Willem II",       psv: 7, tg: 0 },
+    { datum: "2026-10-25", comp: "Eredivisie",       thuis: true,  tegenstander: "Feyenoord",       psv: 1, tg: 1 },
+    { datum: "2026-10-20", comp: "Champions League", thuis: false, tegenstander: "FC Porto",        psv: 1, tg: 0 },
+    { datum: "2026-10-17", comp: "Eredivisie",       thuis: false, tegenstander: "ADO Den Haag",    psv: 1, tg: 2 },
+    { datum: "2026-10-13", comp: "Champions League", thuis: false, tegenstander: "RB Leipzig",      psv: 0, tg: 1 },
+    { datum: "2026-10-09", comp: "Eredivisie",       thuis: true,  tegenstander: "sc Heerenveen",   psv: 2, tg: 0 },
+    { datum: "2026-09-20", comp: "Eredivisie",       thuis: false, tegenstander: "FC Twente",       psv: 2, tg: 3 },
+    { datum: "2026-09-13", comp: "Eredivisie",       thuis: true,  tegenstander: "Sparta Rotterdam",psv: 4, tg: 1 },
+    { datum: "2026-09-10", comp: "Champions League", thuis: true,  tegenstander: "Shakhtar Donetsk",psv: 1, tg: 1 },
+    { datum: "2026-09-05", comp: "Eredivisie",       thuis: false, tegenstander: "Ajax",            psv: 3, tg: 1 },
+    { datum: "2026-08-30", comp: "Eredivisie",       thuis: false, tegenstander: "FC Utrecht",      psv: 6, tg: 1 },
+    { datum: "2026-08-23", comp: "Eredivisie",       thuis: true,  tegenstander: "FC Groningen",    psv: 5, tg: 1 },
+    { datum: "2026-08-15", comp: "Eredivisie",       thuis: false, tegenstander: "Excelsior",       psv: 2, tg: 1 },
+    { datum: "2026-08-08", comp: "Eredivisie",       thuis: true,  tegenstander: "Fortuna Sittard", psv: 2, tg: 2 },
   ],
 };
 
-// Opstelling (4-3-3). x = links→rechts (0-100), y = boven (aanval) → onder (keeper).
-// LET OP: dit is een VERWACHTE opstelling (voorbeeld). De echte opstelling komt ~1 uur voor de wedstrijd.
+// Opstelling van de laatste CL-wedstrijd (voorbeeld)
 const OPSTELLING = {
-  wedstrijd: "Real Madrid – PSV (Champions League, di 24 november 2026, 21:00)",
+  wedstrijd: "Real Madrid – PSV (Champions League, 24 november 2026) · 5-1",
   formatie: "4-3-3",
-  officieel: false,
+  officieel: true,
   spelers: [
     { nr: 9,  naam: "Pepi",         x: 50, y: 12 },
-    { nr: 19, naam: "Bajraktarević",x: 20, y: 20 },
-    { nr: 27, naam: "Man",          x: 80, y: 20 },
+    { nr: 5,  naam: "Perišić",      x: 20, y: 20 },
+    { nr: 7,  naam: "van Bommel",   x: 80, y: 20 },
     { nr: 21, naam: "Mijnans",      x: 30, y: 42 },
     { nr: 20, naam: "Til",          x: 50, y: 48 },
     { nr: 24, naam: "Sano",         x: 70, y: 42 },
