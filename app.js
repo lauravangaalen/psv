@@ -1,4 +1,10 @@
 const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+function setHTML(sel, html) {
+  const el = $(sel);
+  if (el) el.innerHTML = html;
+  else console.warn("Element niet gevonden:", sel);
+}
 const fmtDatum = (iso, lang = "nl-NL") =>
   new Date(iso + "T12:00:00").toLocaleDateString(lang, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 const kort = iso => new Date(iso + "T12:00:00").toLocaleDateString("nl-NL", { weekday: "short", day: "numeric", month: "short" });
@@ -21,10 +27,13 @@ document.querySelectorAll("#nav button").forEach(b => b.addEventListener("click"
 
 /* ---------- Volgende wedstrijd ---------- */
 (function volgende() {
-  const vandaag = new Date().toISOString().slice(0, 10);
-  const m = PROGRAMMA.find(x => x.datum >= vandaag) || PROGRAMMA[0];
-  $("#next").innerHTML = `<small>Volgende wedstrijd</small><br><b>${esc(wedstrijdTekst(m))}</b><br>
-    ${fmtDatum(m.datum)}${m.tijd ? " · " + m.tijd + " uur" : ""}<br><span class="badge ${badgeKlasse(m.comp)}">${esc(m.comp)}</span>`;
+  try {
+    if (typeof PROGRAMMA === "undefined" || !PROGRAMMA.length) return;
+    const vandaag = new Date().toISOString().slice(0, 10);
+    const m = PROGRAMMA.find(x => x.datum >= vandaag) || PROGRAMMA[0];
+    setHTML("#next", `<small>Volgende wedstrijd</small><br><b>${esc(wedstrijdTekst(m))}</b><br>
+      ${fmtDatum(m.datum)}${m.tijd ? " · " + m.tijd + " uur" : ""}<br><span class="badge ${badgeKlasse(m.comp)}">${esc(m.comp)}</span>`);
+  } catch (e) { console.error("volgende:", e); }
 })();
 
 /* ---------- Spelers ---------- */
@@ -84,10 +93,12 @@ $("#modal").addEventListener("click", e => { if (e.target.id === "modal") $("#mo
 document.addEventListener("keydown", e => e.key === "Escape" && ($("#modal").hidden = true));
 
 /* ---------- Wedstrijden ---------- */
-$("#programma").innerHTML = PROGRAMMA.map(m => `<div class="match">
-  <div class="d">${kort(m.datum)}<small>${m.tijd ? m.tijd + " uur" : "tijd nog niet bekend"}</small></div>
-  <div class="t"><b>${esc(wedstrijdTekst(m))}</b><br><small class="muted">${esc(m.plaats || "")}</small></div>
-  <span class="badge ${badgeKlasse(m.comp)}">${esc(m.comp)}</span></div>`).join("");
+try {
+  setHTML("#programma", PROGRAMMA.map(m => `<div class="match">
+    <div class="d">${kort(m.datum)}<small>${m.tijd ? m.tijd + " uur" : "tijd nog niet bekend"}</small></div>
+    <div class="t"><b>${esc(wedstrijdTekst(m))}</b><br><small class="muted">${esc(m.plaats || "")}</small></div>
+    <span class="badge ${badgeKlasse(m.comp)}">${esc(m.comp)}</span></div>`).join(""));
+} catch (e) { console.error("programma:", e); }
 
 /* ---------- Uitslagen ---------- */
 const seizoenen = Object.keys(UITSLAGEN);
@@ -132,7 +143,17 @@ function tekenStaf() {
   $("#stafPerformance").innerHTML = STAF.performance.map(card).join("");
 }
 
-tekenFilter(); tekenSpelers(); tekenUitslagen(); tekenOpstelling(); tekenStaf();
+try {
+  tekenFilter();
+  tekenSpelers();
+  tekenUitslagen();
+  tekenOpstelling();
+  tekenStaf();
+} catch (e) {
+  console.error("Init fout:", e);
+  const n = document.querySelector("#next");
+  if (n) n.innerHTML = "<b>Laden mislukt</b> – hard refresh (Ctrl+Shift+R) of open in incognito.";
+}
 
 /* ---------- Tenues 2026/27 ---------- */
 const SHIRT = "M30 14 L10 28 L20 52 L34 46 L34 118 H86 V46 L100 52 L110 28 L90 14 Q60 32 30 14 Z";
@@ -183,9 +204,9 @@ const TENUES = [
   { id: "derde", naam: "Derde shirt", info: "Navy met geometrisch patroon · cyan accenten", basis: "#0d1f33", mouw: "#0d1f33", rand: "#17c3c3", kraag: "#17c3c3" },
 ];
 
-$("#kitGrid").innerHTML = TENUES.map(t =>
+setHTML("#kitGrid", TENUES.map(t =>
   `<div class="kit"><div class="art" id="art-${t.id}">${shirt(t)}</div><b>${t.naam}</b><small>${t.info}</small></div>`
-).join("");
+).join(""));
 
 TENUES.forEach(t => {
   const img = new Image();
